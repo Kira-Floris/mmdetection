@@ -266,9 +266,9 @@ train_dataloader = dict(
     pin_memory=True,
     dataset=dict(
         type='CocoDataset',
-        data_root=data_root,
+        data_root=data_root+train_data_prefix,
         ann_file=train_ann_file,
-        img_prefix=train_data_prefix,
+        # img_prefix=train_data_prefix,
         pipeline=train_pipeline))
 
 val_dataloader = dict(
@@ -278,9 +278,9 @@ val_dataloader = dict(
     pin_memory=True,
     dataset=dict(
         type='CocoDataset',
-        data_root=data_root,
+        data_root=data_root+val_data_prefix,
         ann_file=val_ann_file,
-        img_prefix=val_data_prefix,
+        # img_prefix=val_data_prefix,
         pipeline=test_pipeline))
 
 test_dataloader = val_dataloader  # Assuming you're using the validation dataset for testing
