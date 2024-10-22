@@ -122,9 +122,9 @@ train_dataloader = dict(
     pin_memory=True,
     dataset=dict(
         type='CocoDataset',
-        data_root=data_root+train_data_prefix,
+        data_root=data_root,
         ann_file=train_ann_file,
-        # img_prefix=train_data_prefix,
+        data_prefix=train_data_prefix,
         pipeline=train_pipeline))
 
 val_dataloader = dict(
@@ -134,9 +134,9 @@ val_dataloader = dict(
     pin_memory=True,
     dataset=dict(
         type='CocoDataset',
-        data_root=data_root+val_data_prefix,
+        data_root=data_root,
         ann_file=val_ann_file,
-        # img_prefix=val_data_prefix,
+        data_prefix=val_data_prefix,
         pipeline=test_pipeline))
 
 test_dataloader = val_dataloader  # Assuming you're using the validation dataset for testing
@@ -156,7 +156,7 @@ val_evaluator = dict(
 
 optim_wrapper = dict(
     type='OptimWrapper',
-    optimizer=dict(type='AdamW', lr=base_lr, weight_decay=weight_decay),
+    optimizer=dict(type='SGD', lr=base_lr, weight_decay=weight_decay),
     paramwise_cfg=dict(norm_decay_mult=0, bias_decay_mult=0))
 
 param_scheduler = [
