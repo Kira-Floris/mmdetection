@@ -85,6 +85,8 @@ train_dataloader = dict(
     num_workers=train_num_workers,
     persistent_workers=persistent_workers,
     pin_memory=True,
+    collate_fn=dict(type='default_collate'),
+    sampler=dict(type='DefaultSampler', shuffle=True),
     dataset=dict(
         type='CocoDataset',
         data_root=data_root,
@@ -93,10 +95,11 @@ train_dataloader = dict(
         pipeline=train_pipeline))
 
 val_dataloader = dict(
-    batch_size=2,  # Set validation batch size
-    num_workers=train_num_workers,
+    batch_size=val_batch_size_per_gpu,
+    num_workers=val_num_workers,
     persistent_workers=persistent_workers,
     pin_memory=True,
+    drop_last=False,
     dataset=dict(
         type='CocoDataset',
         data_root=data_root,
