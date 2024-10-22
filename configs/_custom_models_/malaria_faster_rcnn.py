@@ -283,12 +283,20 @@ val_dataloader = dict(
         img_prefix=val_data_prefix,
         pipeline=test_pipeline))
 
-test_dataloader = val_dataloader
+test_dataloader = val_dataloader  # Assuming you're using the validation dataset for testing
+
+# Add a test evaluator
+test_evaluator = dict(
+    type='CocoMetric',
+    ann_file=val_ann_file,
+    metric=['bbox']
+)
 
 val_evaluator = dict(
     type='CocoMetric',
     ann_file=val_ann_file,
-    metric=['bbox'])
+    metric=['bbox']
+)
 
 optim_wrapper = dict(
     type='OptimWrapper',
