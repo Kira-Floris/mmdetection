@@ -120,8 +120,8 @@ test_pipeline = [
     dict(
         type='MultiScaleFlipAug',
         transforms=[
-            dict(type='Resize', keep_ratio=True),
-            dict(type='RandomFlip'),
+            dict(type='Resize', scale=img_scale, keep_ratio=True),
+            # dict(type='RandomFlip'),
             dict(type='Normalize', mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375]),
             dict(type='Pad', size=img_scale),
             dict(type='ImageToTensor', keys=['img']),
