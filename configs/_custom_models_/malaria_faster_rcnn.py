@@ -52,73 +52,101 @@ optim_wrapper = dict(
 # Learning rate schedule
 lr_config = dict(policy='step', step=[16, 22])
 
-# Training schedule
+# Total training epochs
 total_epochs = 24
 
-# Training configuration
-train_cfg = dict(
-    rpn=dict(
-        assigner=dict(
-            type='MaxIoUAssigner',
-            pos_iou_thr=0.7,
-            neg_iou_thr=0.3,
-            min_pos_iou=0.3,
-            match_low_quality=True,
-            ignore_iof_thr=-1),
-        sampler=dict(
-            type='RandomSampler',
-            num=256,
-            pos_fraction=0.5,
-            neg_pos_ub=-1,
-            add_gt_as_proposals=False),
-        allowed_border=0,
-        pos_weight=-1,
-        debug=False),
-    rcnn=dict(
-        assigner=dict(
-            type='MaxIoUAssigner',
-            pos_iou_thr=0.5,
-            neg_iou_thr=0.5,
-            min_pos_iou=0.5,
-            match_low_quality=True,
-            ignore_iof_thr=-1),
-        sampler=dict(
-            type='RandomSampler',
-            num=512,
-            pos_fraction=0.25,
-            neg_pos_ub=-1,
-            add_gt_as_proposals=True),
-        pos_weight=-1,
-        debug=False)
+# Model configuration (rpn and rcnn go here)
+model = dict(
+    rpn_head=dict(
+        anchor_generator=dict(
+            scales=[8],
+            ratios=[0.5, 1.0, 2.0],
+            strides=[4, 8, 16, 32, 64]
+        ),
+        bbox_coder=dict(
+            type='DeltaXYWHBBoxCoder',
+            target_means=[.0, .0, .0, .0],
+            target_stds=[1.0, 1.0, 1.0, 1.0]
+        ),
+        loss_cls=dict(
+            type='CrossEntropyLoss', use_sigmoid=True, loss_weight=1.0),
+        loss_bbox=dict(type='L1Loss', loss_weight=1.0)
+    ),
+    roi_head=dict(
+        bbox_head=dict(
+            num_classes=1,  # Adjust according to the number of classes
+            loss_cls=dict(
+                type='CrossEntropyLoss', use_sigmoid=False, loss_weight=1.0),
+            loss_bbox=dict(type='L1Loss', loss_weight=1.0)
+        )
+    ),
+    # Training settings (train_cfg moved here)
+    train_cfg=dict(
+        rpn=dict(
+            assigner=dict(
+                type='MaxIoUAssigner',
+                pos_iou_thr=0.7,
+                neg_iou_thr=0.3,
+                min_pos_iou=0.3,
+                match_low_quality=True,
+                ignore_iof_thr=-1
+            ),
+            sampler=dict(
+                type='RandomSampler',
+                num=256,
+                pos_fraction=0.5,
+                neg_pos_ub=-1,
+                add_gt_as_proposals=False
+            ),
+            allowed_border=0,
+            pos_weight=-1,
+            debug=False
+        ),
+        rcnn=dict(
+            assigner=dict(
+                type='MaxIoUAssigner',
+                pos_iou_thr=0.5,
+                neg_iou_thr=0.5,
+                min_pos_iou=0.5,
+                match_low_quality=True,
+                ignore_iof_thr=-1
+            ),
+            sampler=dict(
+                type='RandomSampler',
+                num=512,
+                pos_fraction=0.25,
+                neg_pos_ub=-1,
+                add_gt_as_proposals=True
+            ),
+            pos_weight=-1,
+            debug=False
+        )
+    )
 )
 
-# Validation configuration
-val_cfg = dict(
-    metric=['bbox'],
-    interval=1
-)
+# Validation and Test configurations
+val_cfg = dict(interval=1, metric='bbox')
 
-# Add the val_evaluator
 val_evaluator = dict(
-    type='CocoEvaluator',  # Use COCO-style evaluator
+    type='CocoEvaluator',
     ann_file=data_root + 'annotations/val_annotations.json',
     metric='bbox'
 )
 
-# Testing configuration
 test_cfg = dict(
     rpn=dict(
         nms_pre=1000,
         max_per_img=1000,
         nms=dict(type='nms', iou_threshold=0.7),
-        min_bbox_size=0),
+        min_bbox_size=0
+    ),
     rcnn=dict(
         score_thr=0.05,
         nms=dict(type='nms', iou_threshold=0.5),
-        max_per_img=100)
+        max_per_img=100
+    )
 )
 
-# Add the test_evaluator
 test_evaluator = dict(
     type='CocoEvaluator',
     ann_file=data_root + 'annotations/val_annotations.json',
