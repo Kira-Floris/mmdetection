@@ -1,6 +1,8 @@
 # model settings
+default_scope = 'mmdet'
+
 model = dict(
-    type='mmdet.models.detectors.faster_rcnn.FasterRCNN',
+    type='FasterRCNN',
     data_preprocessor=dict(
         type='DetDataPreprocessor',
         mean=[123.675, 116.28, 103.53],
