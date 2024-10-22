@@ -106,13 +106,30 @@ train_pipeline = [
     dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels'])
 ]
 
+# test_pipeline = [
+#     dict(type='LoadImageFromFile', backend_args=None),
+#     dict(type='Resize', scale=img_scale, keep_ratio=True),
+#     dict(type='Normalize', mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375]),
+#     dict(type='Pad', size=img_scale),
+#     dict(type='DefaultFormatBundle'),
+#     dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels'])
+# ]
+
 test_pipeline = [
     dict(type='LoadImageFromFile', backend_args=None),
-    dict(type='Resize', scale=img_scale, keep_ratio=True),
-    dict(type='Normalize', mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375]),
-    dict(type='Pad', size=img_scale),
-    dict(type='DefaultFormatBundle'),
-    dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels'])
+    dict(
+        type='MultiScaleFlipAug',
+        scale=img_scale,
+        flip=False,
+        transforms=[
+            dict(type='Resize', keep_ratio=True),
+            dict(type='RandomFlip'),
+            dict(type='Normalize', mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375]),
+            dict(type='Pad', size=img_scale),
+            dict(type='ImageToTensor', keys=['img']),
+            dict(type='Collect', keys=['img']),
+        ]
+    )
 ]
 
 train_dataloader = dict(
