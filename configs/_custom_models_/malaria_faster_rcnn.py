@@ -1,5 +1,5 @@
-# _base_ = ['../_base_/default_runtime.py', '../_base_/det_faster_rcnn.py']
-_base_ = '/kaggle/working/mmdetection/configs/_base_/models/faster-rcnn_r50_fpn.py'
+default_scope = 'mmdet'
+
 _base_ = ['/kaggle/working/mmdetection/configs/_base_/models/faster_rcnn_r50_fpn.py', '/kaggle/working/mmdetection/configs/_base_/default_runtime.py', '/kaggle/working/mmdetection/configs/_base_/schedules/schedule_1x.py']
 
 # ========================Frequently modified parameters======================
