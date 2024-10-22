@@ -35,8 +35,19 @@ val_dataloader = dict(
     shuffle=False
 )
 
-# Modify other settings as needed
-optimizer = dict(type='SGD', lr=0.02, momentum=0.9, weight_decay=0.0001)
+test_dataloader = dict(
+    batch_size=1,
+    num_workers=2,
+    shuffle=False
+)
+
+# Optimizer settings
+optim_wrapper = dict(
+    type='OptimWrapper',  # Wrapper for optimizer
+    optimizer=dict(type='SGD', lr=0.02, momentum=0.9, weight_decay=0.0001),
+    paramwise_cfg=dict(
+        bias_lr_mult=2., bias_decay_mult=0.)  # Adjustments for bias terms if needed
+)
 
 # Learning rate schedule
 lr_config = dict(policy='step', step=[16, 22])
@@ -82,7 +93,20 @@ train_cfg = dict(
 )
 
 # Validation configuration
-val_cfg = dict()
+val_cfg = dict(
+    metric=['bbox'],  # List the metrics you want to evaluate, such as 'bbox' or 'segm' for COCO-style evaluation
+    interval=1  # Set to validate after each epoch
+)
 
 # Testing configuration
-test_cfg = dict()
+test_cfg = dict(
+    rpn=dict(
+        nms_pre=1000,
+        max_per_img=1000,
+        nms=dict(type='nms', iou_threshold=0.7),
+        min_bbox_size=0),
+    rcnn=dict(
+        score_thr=0.05,
+        nms=dict(type='nms', iou_threshold=0.5),
+        max_per_img=100)
+)
