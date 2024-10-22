@@ -1,4 +1,6 @@
-_base_ = ['../_base_/default_runtime.py', '../_base_/det_faster_rcnn.py']
+# _base_ = ['../_base_/default_runtime.py', '../_base_/det_faster_rcnn.py']
+_base_ = '/kaggle/working/mmdetection/configs/_base_/models/faster-rcnn_r50_fpn.py'
+_base_ = ['/kaggle/working/mmdetection/configs/_base_/models/faster_rcnn_r50_fpn.py', '/kaggle/working/mmdetection/configs/_base_/default_runtime.py', '/kaggle/working/mmdetection/configs/_base_/schedules/schedule_1x.py']
 
 # ========================Frequently modified parameters======================
 # -----data related-----
@@ -24,8 +26,8 @@ base_lr = 0.002
 max_epochs = 20  # Adjust as necessary
 num_epochs_stage2 = 10
 
+# Multi-class prediction configuration
 model_test_cfg = dict(
-    # The config of multi-label for multi-class prediction.
     multi_label=True,
     nms_pre=1000,
     score_thr=0.05,  # Threshold to filter out boxes
@@ -50,50 +52,11 @@ val_interval_stage2 = 1
 max_keep_ckpts = 3
 env_cfg = dict(cudnn_benchmark=True)
 
-# ===============================Unmodified in most cases====================
+# ===============================Unmodified in most cases=====================
 model = dict(
-    type='FasterRCNN',
-    data_preprocessor=dict(
-        type='DetDataPreprocessor',
-        mean=[123.675, 116.28, 103.53],
-        std=[58.395, 57.12, 57.375],
-        bgr_to_rgb=True),
-    backbone=dict(
-        type='ResNet',
-        depth=50,
-        num_stages=4,
-        out_indices=(0, 1, 2, 3),
-        frozen_stages=1,
-        norm_cfg=norm_cfg,
-        style='pytorch'),
-    neck=dict(
-        type='FPN',
-        in_channels=[256, 512, 1024, 2048],
-        out_channels=256,
-        num_outs=5),
     roi_head=dict(
-        type='StandardRoIHead',
-        bbox_roi_extractor=dict(
-            type='SingleRoIExtractor',
-            roi_layer=dict(type='RoIAlign', output_size=7, sampling_ratio=0),
-            out_channels=256,
-            featmap_strides=[4, 8, 16, 32]),
         bbox_head=dict(
-            type='Shared2FCBBoxHead',
-            num_classes=num_classes,
-            in_channels=256,
-            fc_out_channels=1024,
-            roi_feat_size=7,
-            bbox_coder=dict(type='DeltaXYWHBBoxCoder', target_means=[0.0, 0.0, 0.0, 0.0], target_stds=[0.1, 0.1, 0.2, 0.2]),
-            loss_cls=dict(type='CrossEntropyLoss', use_sigmoid=False, loss_weight=1.0),
-            loss_bbox=dict(type='L1Loss', loss_weight=1.0))),
-    train_cfg=dict(
-        assigner=dict(type='MaxIoUAssigner', pos_iou_thr=0.5, neg_iou_thr=0.5, min_pos_iou=0.5, gt_max_assign_all=False),
-        sampler=dict(type='RandomSampler', num=512, pos_fraction=0.25, neg_pos_ub=-1, add_gt_as_proposals=False),
-        pos_weight=-1,
-        debug=False),
-    test_cfg=model_test_cfg,
-)
+            num_classes=num_classes)))
 
 train_pipeline = [
     dict(type='LoadImageFromFile'),
