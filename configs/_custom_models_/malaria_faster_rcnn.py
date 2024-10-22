@@ -238,8 +238,8 @@ train_pipeline = [
     # dict(type='RandomFlip', flip=True, direction='horizontal'),
     dict(type='Normalize', mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375]),
     dict(type='Pad', size_divisor=32),
-    # dict(type='FormatBundle'),
-    # dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels']),
+    dict(type='FormatBundle'),
+    dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels']),
 ]
 
 val_pipeline = [
@@ -248,8 +248,8 @@ val_pipeline = [
     dict(type='Resize', scale=img_scale, keep_ratio=True),
     dict(type='Normalize', mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375]),
     dict(type='Pad', size_divisor=32),
-    # dict(type='FormatBundle'),
-    # dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels']),
+    dict(type='FormatBundle'),
+    dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels']),
 ]
 
 train_dataloader = dict(
