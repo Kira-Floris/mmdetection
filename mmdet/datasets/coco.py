@@ -114,8 +114,8 @@ class CocoDataset(BaseDetDataset):
         data_info = {}
 
         # TODO: need to change data_prefix['img'] to data_prefix['img_path']
-        print("ERROR Debugging:",self.data_prefix)
-        img_path = osp.join(self.data_prefix['img'], img_info['file_name'])
+        # print("ERROR Debugging:",self.data_prefix)
+        img_path = osp.join(self.data_prefix['img_path'], img_info['file_name'])
         if self.data_prefix.get('seg', None):
             seg_map_path = osp.join(
                 self.data_prefix['seg'],
