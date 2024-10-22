@@ -42,7 +42,10 @@ optim_wrapper = dict(
     paramwise_cfg=dict(bias_lr_mult=2., bias_decay_mult=0.))
 
 # Learning rate schedule
-param_scheduler = dict(policy='step', step=[16, 22])
+# Learning rate schedule
+param_scheduler = [
+    dict(type='StepLR', step=[16, 22], gamma=0.1)  # StepLR with gamma and step
+]
 
 # Training schedule
 max_epochs = 24
