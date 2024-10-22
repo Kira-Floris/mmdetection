@@ -291,7 +291,7 @@ test_evaluator = val_evaluator
 
 # optimizer
 optim_wrapper = dict(
-    type='OptimWrapper',
+    # type='OptimWrapper',
     optimizer=dict(type='AdamW', lr=base_lr, weight_decay=weight_decay))
 
 # learning rate schedule
