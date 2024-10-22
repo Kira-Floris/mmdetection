@@ -156,9 +156,15 @@ val_ann_file = '/kaggle/working/mmdetection/data/malaria/annotations/_annotation
 
 # We also need to change the num_classes in head to match the dataset's annotation
 model = dict(
+    type='FasterRCNN',  # Specify the model type
     roi_head=dict(
-        bbox_head=dict(num_classes=num_classes),
-        mask_head=dict(num_classes=num_classes)))
+        type='StandardRoIHead',  # Specify the RoI head type
+        bbox_head=dict(
+            type='Shared2FCBBoxHead',  # Specify the bounding box head type
+            num_classes=num_classes),
+        mask_head=dict(
+            type='FCNMaskHead',  # Specify the mask head type
+            num_classes=num_classes)))
 
 # Modify dataset related settings
 dataset_type = 'CocoDataset'
