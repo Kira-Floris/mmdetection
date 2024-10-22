@@ -24,7 +24,7 @@ data = dict(
 
 # Dataloader settings
 train_dataloader = dict(
-    batch_size=2,  # Adjust based on your system's capacity
+    batch_size=2,
     num_workers=2,
     shuffle=True
 )
@@ -43,10 +43,10 @@ test_dataloader = dict(
 
 # Optimizer settings
 optim_wrapper = dict(
-    type='OptimWrapper',  # Wrapper for optimizer
+    type='OptimWrapper',
     optimizer=dict(type='SGD', lr=0.02, momentum=0.9, weight_decay=0.0001),
     paramwise_cfg=dict(
-        bias_lr_mult=2., bias_decay_mult=0.)  # Adjustments for bias terms if needed
+        bias_lr_mult=2., bias_decay_mult=0.)
 )
 
 # Learning rate schedule
@@ -94,8 +94,15 @@ train_cfg = dict(
 
 # Validation configuration
 val_cfg = dict(
-    metric=['bbox'],  # List the metrics you want to evaluate, such as 'bbox' or 'segm' for COCO-style evaluation
-    interval=1  # Set to validate after each epoch
+    metric=['bbox'],
+    interval=1
+)
+
+# Add the val_evaluator
+val_evaluator = dict(
+    type='CocoEvaluator',  # Use COCO-style evaluator
+    ann_file=data_root + 'annotations/val_annotations.json',
+    metric='bbox'
 )
 
 # Testing configuration
@@ -109,4 +116,11 @@ test_cfg = dict(
         score_thr=0.05,
         nms=dict(type='nms', iou_threshold=0.5),
         max_per_img=100)
+)
+
+# Add the test_evaluator
+test_evaluator = dict(
+    type='CocoEvaluator',
+    ann_file=data_root + 'annotations/val_annotations.json',
+    metric='bbox'
 )
