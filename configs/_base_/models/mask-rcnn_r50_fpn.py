@@ -1,4 +1,6 @@
 # model settings
+default_scope = 'mmdet'
+
 model = dict(
     type='MaskRCNN',
     data_preprocessor=dict(

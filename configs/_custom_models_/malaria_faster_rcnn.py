@@ -1,3 +1,5 @@
+default_scope = 'mmdet'
+
 _base_ = '/kaggle/working/mmdetection/configs/_base_/models/faster-rcnn_r50_fpn.py'
 
 # Dataset setup
