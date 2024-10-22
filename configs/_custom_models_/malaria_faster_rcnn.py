@@ -195,7 +195,7 @@ train_num_workers = 4
 persistent_workers = True
 
 # -----train val related-----
-base_lr = 0.002
+base_lr = 0.02
 max_epochs = 20  # Adjust as necessary
 num_epochs_stage2 = 10
 
@@ -217,7 +217,7 @@ val_num_workers = 4
 norm_cfg = dict(type='BN')
 
 # -----train val related-----
-weight_decay = 0.0001
+weight_decay = 0.001
 
 # Save model checkpoint and validation intervals
 save_checkpoint_intervals = 5
@@ -292,7 +292,7 @@ test_evaluator = val_evaluator
 # optimizer
 optim_wrapper = dict(
     # type='OptimWrapper',
-    optimizer=dict(type='AdamW', lr=base_lr, weight_decay=weight_decay))
+    optimizer=dict(type='SGD', lr=base_lr, weight_decay=weight_decay))
 
 # learning rate schedule
 param_scheduler = [
