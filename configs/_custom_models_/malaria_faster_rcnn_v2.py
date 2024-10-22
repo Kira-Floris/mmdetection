@@ -104,7 +104,7 @@ train_pipeline = [
     dict(type='Normalize', mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375]),
     dict(type='Pad', size=img_scale),
     # dict(type='DefaultFormatBundle'),
-    # dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels'])
+    dict(type='ImageCollect', keys=['img', 'gt_bboxes', 'gt_labels'])
 ]
 
 test_pipeline = [
@@ -115,7 +115,7 @@ test_pipeline = [
     dict(type='Normalize', mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375]),
     dict(type='Pad', size=img_scale),
     # dict(type='DefaultFormatBundle'),
-    # dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels'])
+    dict(type='ImageCollect', keys=['img', 'gt_bboxes', 'gt_labels'])
 ]
 
 
