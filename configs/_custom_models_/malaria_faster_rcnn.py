@@ -1,5 +1,3 @@
-default_scope = 'mmdet'
-
 _base_ = '/kaggle/working/mmdetection/configs/_base_/models/faster-rcnn_r50_fpn.py'
 
 # Dataset setup
@@ -44,52 +42,49 @@ optim_wrapper = dict(
     paramwise_cfg=dict(bias_lr_mult=2., bias_decay_mult=0.))
 
 # Learning rate schedule
-# Learning rate schedule
 param_scheduler = [
-    dict(type='StepLR', step=[16, 22], gamma=0.1)  # StepLR with gamma and step
+    dict(type='StepLR', step=[16, 22], gamma=0.1)  # Correct StepLR definition
 ]
 
 # Training schedule
-max_epochs = 24
-train_cfg = dict(type='EpochBasedTrainLoop', max_epochs=max_epochs, val_interval=1)
+total_epochs = 24
+train_cfg = dict(type='EpochBasedTrainLoop', max_epochs=total_epochs, val_interval=1)
 
-# RPN and RCNN configurations
-train_cfg.update(
-    dict(
-        rpn=dict(
-            assigner=dict(
-                type='MaxIoUAssigner',
-                pos_iou_thr=0.7,
-                neg_iou_thr=0.3,
-                min_pos_iou=0.3,
-                match_low_quality=True,
-                ignore_iof_thr=-1),
-            sampler=dict(
-                type='RandomSampler',
-                num=256,
-                pos_fraction=0.5,
-                neg_pos_ub=-1,
-                add_gt_as_proposals=False),
-            allowed_border=0,
-            pos_weight=-1,
-            debug=False),
-        rcnn=dict(
-            assigner=dict(
-                type='MaxIoUAssigner',
-                pos_iou_thr=0.5,
-                neg_iou_thr=0.5,
-                min_pos_iou=0.5,
-                match_low_quality=True,
-                ignore_iof_thr=-1),
-            sampler=dict(
-                type='RandomSampler',
-                num=512,
-                pos_fraction=0.25,
-                neg_pos_ub=-1,
-                add_gt_as_proposals=True),
-            pos_weight=-1,
-            debug=False)
-    )
+# Add RPN and RCNN configurations separately
+model = dict(
+    rpn=dict(
+        assigner=dict(
+            type='MaxIoUAssigner',
+            pos_iou_thr=0.7,
+            neg_iou_thr=0.3,
+            min_pos_iou=0.3,
+            match_low_quality=True,
+            ignore_iof_thr=-1),
+        sampler=dict(
+            type='RandomSampler',
+            num=256,
+            pos_fraction=0.5,
+            neg_pos_ub=-1,
+            add_gt_as_proposals=False),
+        allowed_border=0,
+        pos_weight=-1,
+        debug=False),
+    rcnn=dict(
+        assigner=dict(
+            type='MaxIoUAssigner',
+            pos_iou_thr=0.5,
+            neg_iou_thr=0.5,
+            min_pos_iou=0.5,
+            match_low_quality=True,
+            ignore_iof_thr=-1),
+        sampler=dict(
+            type='RandomSampler',
+            num=512,
+            pos_fraction=0.25,
+            neg_pos_ub=-1,
+            add_gt_as_proposals=True),
+        pos_weight=-1,
+        debug=False)
 )
 
 # Validation configuration
@@ -98,11 +93,12 @@ val_cfg = dict(
     interval=1
 )
 
-# Validation configuration
+# Add the val_evaluator
 val_evaluator = dict(
     type='CocoEvaluator',  # Use COCO-style evaluator
     ann_file=data_root + 'annotations/val_annotations.json',
-    metric='bbox')
+    metric='bbox'
+)
 
 # Testing configuration
 test_cfg = dict(
@@ -117,16 +113,12 @@ test_cfg = dict(
         max_per_img=100)
 )
 
-# Test evaluator configuration
+# Add the test_evaluator
 test_evaluator = dict(
     type='CocoEvaluator',
     ann_file=data_root + 'annotations/val_annotations.json',
-    metric='bbox')
-
-# Hooks for logging and checkpointing
-default_hooks = dict(
-    checkpoint=dict(interval=5, max_keep_ckpts=2, save_best='auto'),
-    logger=dict(type='LoggerHook', interval=5))
+    metric='bbox'
+)
 
 # Default hooks for logging and checkpointing
 default_hooks = dict(
@@ -141,7 +133,7 @@ default_hooks = dict(
 
 # Visualizer configuration
 visualizer = dict(
-    type='Visualizer',  # Use 'Visualizer' if it exists, or choose a suitable type
+    type='Visualizer',  # Change this to an appropriate type
     vis_backends=[
         dict(type='LocalVisBackend'),
         dict(type='TensorboardVisBackend')
@@ -149,7 +141,6 @@ visualizer = dict(
     name='malaria_faster_rcnn',  # Name for the visualizer
     save_dir='/kaggle/working/mmdetection/work_dirs/malaria_faster_rcnn'  # Directory to save outputs
 )
-
 
 # Pretrained weights
 load_from = './checkpoints/faster_rcnn_r50_fpn_2x_coco.pth'
