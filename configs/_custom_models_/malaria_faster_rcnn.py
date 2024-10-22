@@ -90,7 +90,7 @@ train_dataloader = dict(
         type='CocoDataset',
         data_root=data_root,
         ann_file=train_ann_file,
-        img_prefix=train_data_prefix,
+        # img_prefix=train_data_prefix,
         pipeline=train_pipeline))
 
 val_dataloader = dict(
@@ -103,7 +103,7 @@ val_dataloader = dict(
         type='CocoDataset',
         data_root=data_root,
         ann_file=val_ann_file,
-        img_prefix=val_data_prefix,
+        # img_prefix=val_data_prefix,
         pipeline=val_pipeline))
 
 test_dataloader = val_dataloader
