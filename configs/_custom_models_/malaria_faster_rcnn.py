@@ -165,7 +165,7 @@ param_scheduler = [
 ]
 
 default_scope = 'mmdet'
-load_from = '/kaggle/working/mmdetection/work_dirs/faster_rcnn_malaria/best_ckpt.pth'  # Ensure this path is correct for your environment
+# load_from = '/kaggle/working/mmdetection/work_dirs/faster_rcnn_malaria/best_ckpt.pth'  # Ensure this path is correct for your environment
 auto_scale_lr = dict(base_batch_size=train_batch_size_per_gpu)
 
 train_cfg = dict(max_epochs=max_epochs, val_interval=1)
