@@ -3,8 +3,8 @@ from mmcv import Config
 
 cfg = Config({
     'type': 'CocoDataset',
-    'ann_file': 'data/malaria/annotations/train_annotations.json',
-    'img_prefix': 'data/malaria/train/',
+    'ann_file': '/kaggle/working/mmdetection/data/malaria/annotations/train_annotations.json',
+    'img_prefix': '/kaggle/working/mmdetection/data/malaria/train/',
     'pipeline': [
         # Define your data preprocessing pipeline here
         dict(type='LoadImageFromFile'),
@@ -23,8 +23,8 @@ cfg = Config({
 
 cfg_val = Config({
     'type': 'CocoDataset',
-    'ann_file': 'data/malaria/annotations/val_annotations.json',
-    'img_prefix': 'data/malaria/val/',
+    'ann_file': '/kaggle/working/mmdetection/data/malaria/annotations/val_annotations.json',
+    'img_prefix': '/kaggle/working/mmdetection/data/malaria/val/',
     'pipeline': [
         dict(type='LoadImageFromFile'),
         dict(type='LoadAnnotations', with_bbox=True),

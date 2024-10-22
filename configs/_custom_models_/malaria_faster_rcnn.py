@@ -1,8 +1,8 @@
 # mmdetection/configs/my_custom_models/my_faster_rcnn.py
 
-_base_ = '/kaggle/working/mmdetection/_base_/models/faster_rcnn_r50_fpn.py'  # Adjust this to your chosen base model path
+_base_ = '/kaggle/working/mmdetection/configs/_base_/models/faster_rcnn_r50_fpn.py'  # Adjust this to your chosen base model path
 dataset_type = 'CocoDataset'
-data_root = 'data/malaria/'
+data_root = '/kaggle/working/data/malaria/'
 
 data = dict(
     train=dict(
