@@ -129,8 +129,9 @@ default_hooks = dict(
     logger=dict(type='LoggerHook', interval=5))
 
 # Visualizer configuration
+# Visualizer configuration
 visualizer = dict(
-    type='UniversalVisualizer',  # or specify a suitable visualizer type
+    type='Visualizer',  # Use 'Visualizer' if it exists, or choose a suitable type
     vis_backends=[
         dict(type='LocalVisBackend'),
         dict(type='TensorboardVisBackend')
@@ -138,6 +139,7 @@ visualizer = dict(
     name='malaria_faster_rcnn',  # Name for the visualizer
     save_dir='/kaggle/working/mmdetection/work_dirs/malaria_faster_rcnn'  # Directory to save outputs
 )
+
 
 # Pretrained weights
 load_from = './checkpoints/faster_rcnn_r50_fpn_2x_coco.pth'
