@@ -1,5 +1,3 @@
-default_scope = 'mmdet'
-
 _base_ = ['/kaggle/working/mmdetection/configs/_base_/models/faster_rcnn_r50_fpn.py', '/kaggle/working/mmdetection/configs/_base_/default_runtime.py', '/kaggle/working/mmdetection/configs/_base_/schedules/schedule_1x.py']
 
 # ========================Frequently modified parameters======================
@@ -65,7 +63,7 @@ train_pipeline = [
     # dict(type='RandomFlip', flip=True, direction='horizontal'),
     dict(type='Normalize', mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375]),
     dict(type='Pad', size_divisor=32),
-    dict(type='DefaultFormatBundle'),
+    dict(type='FormatBundle'),
     dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels']),
 ]
 
@@ -75,7 +73,7 @@ val_pipeline = [
     dict(type='Resize', scale=img_scale, keep_ratio=True),
     dict(type='Normalize', mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375]),
     dict(type='Pad', size_divisor=32),
-    dict(type='DefaultFormatBundle'),
+    dict(type='FormatBundle'),
     dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels']),
 ]
 
