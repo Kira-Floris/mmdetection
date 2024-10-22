@@ -128,7 +128,17 @@ default_hooks = dict(
     checkpoint=dict(interval=5, max_keep_ckpts=2, save_best='auto'),
     logger=dict(type='LoggerHook', interval=5))
 
-# Visualizer configuration
+# Default hooks for logging and checkpointing
+default_hooks = dict(
+    checkpoint=dict(
+        type='CheckpointHook',  # Specify the type of hook
+        interval=5,
+        max_keep_ckpts=2,
+        save_best='auto'
+    ),
+    logger=dict(type='LoggerHook', interval=5)
+)
+
 # Visualizer configuration
 visualizer = dict(
     type='Visualizer',  # Use 'Visualizer' if it exists, or choose a suitable type
