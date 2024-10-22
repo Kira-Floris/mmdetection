@@ -315,9 +315,9 @@ train_cfg = dict(
 val_cfg = dict(type='ValLoop')
 test_cfg = dict(type='TestLoop')
 
-
 visualizer = dict(
-    type='DetLocalVisualizer',  # or 'SegLocalVisualizer' depending on your task
-    vis_backends=[dict(type='LocalVisBackend')],
+    type='DetLocalVisualizer',
+    vis_backends=[dict(type='LocalVisBackend', save_dir='/kaggle/working/visualizations')],
     name="visualizer"
 )
+
