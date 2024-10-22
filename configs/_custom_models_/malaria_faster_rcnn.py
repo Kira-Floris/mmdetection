@@ -126,8 +126,16 @@ default_hooks = dict(
     checkpoint=dict(interval=5, max_keep_ckpts=2, save_best='auto'),
     logger=dict(type='LoggerHook', interval=5))
 
-# Visualizer
-visualizer = dict(vis_backends=[dict(type='LocalVisBackend'), dict(type='TensorboardVisBackend')])
+# Visualizer configuration
+visualizer = dict(
+    type='UniversalVisualizer',  # or specify a suitable visualizer type
+    vis_backends=[
+        dict(type='LocalVisBackend'),
+        dict(type='TensorboardVisBackend')
+    ],
+    name='malaria_faster_rcnn',  # Name for the visualizer
+    save_dir='/kaggle/working/mmdetection/work_dirs/malaria_faster_rcnn'  # Directory to save outputs
+)
 
 # Pretrained weights
 load_from = './checkpoints/faster_rcnn_r50_fpn_2x_coco.pth'
