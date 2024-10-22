@@ -147,6 +147,13 @@
 _base_ = ['/kaggle/working/mmdetection/configs/_base_/models/faster-rcnn_r50_fpn.py',
           '/kaggle/working/mmdetection/configs/_base_/schedules/schedule_1x.py']
 
+class_name = ('Trophozoite', 'NEG', 'WBC')
+num_classes = len(class_name)
+
+train_ann_file = '/kaggle/working/mmdetection/data/malaria/annotations/_annotations.malaria_train.json'
+val_ann_file = '/kaggle/working/mmdetection/data/malaria/annotations/_annotations.malaria_val.json'
+
+
 # We also need to change the num_classes in head to match the dataset's annotation
 model = dict(
     roi_head=dict(
