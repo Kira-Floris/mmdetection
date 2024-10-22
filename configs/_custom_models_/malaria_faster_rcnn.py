@@ -4,10 +4,10 @@ _base_ = ['/kaggle/working/mmdetection/configs/_base_/models/faster-rcnn_r50_fpn
 # -----data related-----
 data_root = '/kaggle/working/mmdetection/data/malaria/'
 
-train_ann_file = 'annotations/train_annotations.json'
+train_ann_file = 'annotations/_annotations.malaria_train.json'
 train_data_prefix = 'train/'
 
-val_ann_file = 'annotations/val_annotations.json'
+val_ann_file = 'annotations/_annotations.malaria_val.json'
 val_data_prefix = 'val/'
 
 class_name = ('Trophozoite', 'NEG', 'WBC')
