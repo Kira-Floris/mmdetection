@@ -91,6 +91,12 @@ train_cfg.update(
 )
 
 # Validation configuration
+val_cfg = dict(
+    metric=['bbox'],
+    interval=1
+)
+
+# Validation configuration
 val_evaluator = dict(
     type='CocoEvaluator',  # Use COCO-style evaluator
     ann_file=data_root + 'annotations/val_annotations.json',
