@@ -192,11 +192,6 @@ save_checkpoint_intervals = 10
 val_interval = 1
 max_keep_ckpts = 3
 
-_base_.visualizer.vis_backends = [
-    dict(type='LocalVisBackend'),
-    dict(type='TensorboardVisBackend'),
-]
-
 model = dict(
     type='FasterRCNN',
     backbone=dict(
@@ -245,7 +240,7 @@ model = dict(
 )
 
 train_pipeline = [
-    dict(type='LoadImageFromFile', backend_args=_base_.backend_args),
+    dict(type='LoadImageFromFile', backend_args=None),
     dict(type='LoadAnnotations', with_bbox=True),
     dict(type='Resize', img_scale=img_scale, keep_ratio=True),
     dict(type='RandomFlip', flip_ratio=0.5),
@@ -256,7 +251,7 @@ train_pipeline = [
 ]
 
 test_pipeline = [
-    dict(type='LoadImageFromFile', backend_args=_base_.backend_args),
+    dict(type='LoadImageFromFile', backend_args=None),
     dict(type='Resize', img_scale=img_scale, keep_ratio=True),
     dict(type='Normalize', mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True),
     dict(type='Pad', size=img_scale, pad_val=114.0),
