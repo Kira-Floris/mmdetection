@@ -201,10 +201,9 @@ train_cfg = dict(max_epochs=max_epochs, val_interval=1)
 
 
 default_hooks = dict(
-    timer=dict(type='IterTimerHook'),
-    logger=dict(type='LoggerHook', interval=50),
-    param_scheduler=dict(type='ParamSchedulerHook'),
-    checkpoint=dict(type='CheckpointHook', interval=1),
-    sampler_seed=dict(type='DistSamplerSeedHook'),
-    visualization=dict(type='VisualizationHook')
-)
+    timer=dict(type='IterTimerHook'),  # Update the time spent during iteration into message hub
+    logger=dict(type='LoggerHook', interval=50),  # Collect logs from different components of Runner and write them to terminal, JSON file, tensorboard and wandb .etc
+    param_scheduler=dict(type='ParamSchedulerHook'), # update some hyper-parameters of optimizer
+    checkpoint=dict(type='CheckpointHook', interval=1), # Save checkpoints periodically
+    sampler_seed=dict(type='DistSamplerSeedHook'),  # Ensure distributed Sampler shuffle is active
+    visualization=dict(type='DetVisualizationHook'))
