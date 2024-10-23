@@ -28,7 +28,7 @@ persistent_workers = True
 
 # -----train val related-----
 base_lr = 0.002
-max_epochs = 20  # Adjust as necessary
+max_epochs = 10  # Adjust as necessary
 
 model_test_cfg = dict(
     rcnn=dict(
