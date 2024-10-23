@@ -151,6 +151,7 @@ class DetDataPreprocessor(ImgDataPreprocessor):
     def _get_pad_shape(self, data: dict) -> List[tuple]:
         """Get the pad_shape of each image based on data and
         pad_size_divisor."""
+        print(data)
         _batch_inputs = data['inputs']
         # Process data with `pseudo_collate`.
         if is_seq_of(_batch_inputs, torch.Tensor):
