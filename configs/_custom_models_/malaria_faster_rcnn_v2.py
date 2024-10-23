@@ -176,7 +176,7 @@ test_dataloader = test_dataloader = dict(
 #     ann_file=test_ann_file,
 #     metric=['bbox']
 # )
-test_evaluator = None
+test_evaluator = []
 
 val_evaluator = dict(
     type='CocoMetric',
