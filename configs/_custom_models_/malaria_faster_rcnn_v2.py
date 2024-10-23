@@ -208,10 +208,14 @@ default_hooks = dict(
     sampler_seed=dict(type='DistSamplerSeedHook'),  # Ensure distributed Sampler shuffle is active
     visualization=dict(type='DetVisualizationHook'))
 
-# Add the visualizer
+vis_backends = [dict(type='LocalVisBackend')]
 visualizer = dict(
-    type='DetLocalVisualizer',  # Use the local visualizer for detection
-    show=True,  # Show results during inference
-    wait_time=0,  # Wait time for visualization (in ms)
-    palette=[(0, 255, 0), (255, 0, 0)]  # Customize palette if necessary
-)
+    type='DetLocalVisualizer',
+    vis_backends=vis_backends,
+    name='visualizer')
+
+visualization=dict( # user visualization of validation and test results
+    type='DetVisualizationHook',
+    draw=False,
+    interval=1,
+    show=False)
