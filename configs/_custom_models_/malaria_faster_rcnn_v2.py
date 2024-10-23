@@ -114,8 +114,8 @@ test_pipeline = [
     # dict(type='PackDetInputs'),
     dict(type='Normalize', mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375]),
     dict(type='Pad', size_divisor=16),
-    dict(type='DefaultFormatBundle'),
-    dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels']),
+    # dict(type='DefaultFormatBundle'),
+    # dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels']),
     dict(type='PackDetInputs'),
 ]
 
