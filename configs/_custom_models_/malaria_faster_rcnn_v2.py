@@ -71,7 +71,7 @@ model = dict(
         type='RPNHead',
         in_channels=256,
         # out_channels=256,
-        num_classes=1,
+        num_classes=num_classes,
         anchor_generator=dict(
             type='AnchorGenerator',
             scales=[8],
@@ -157,23 +157,26 @@ val_dataloader = dict(
         pipeline=val_pipeline
         ))
 
-test_dataloader = test_dataloader = dict(
-    batch_size=2,  # You can adjust the batch size as needed
-    num_workers=train_num_workers,
-    persistent_workers=persistent_workers,
-    pin_memory=True,
-    dataset=dict(
-        type='CocoDataset',
-        data_root=data_root,
-        ann_file=test_ann_file,  # Test annotation file (with just image information, no bboxes)
-        data_prefix=dict(img_path=test_data_prefix),
-        pipeline=test_pipeline
-    )
-)
+# test_dataloader = test_dataloader = dict(
+#     batch_size=2,  # You can adjust the batch size as needed
+#     num_workers=train_num_workers,
+#     persistent_workers=persistent_workers,
+#     pin_memory=True,
+#     dataset=dict(
+#         type='CocoDataset',
+#         data_root=data_root,
+#         ann_file=test_ann_file,  # Test annotation file (with just image information, no bboxes)
+#         data_prefix=dict(img_path=test_data_prefix),
+#         pipeline=test_pipeline
+#     )
+# )
+
+test_dataloader = val_dataloader
+
 # Add a test evaluator
 test_evaluator = dict(
     type='CocoMetric',
-    ann_file=test_ann_file,
+    ann_file=val_ann_file,
     metric=['bbox']
 )
 
