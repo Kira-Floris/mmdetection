@@ -95,9 +95,6 @@ model = dict(
             loss_bbox=dict(type='L1Loss', loss_weight=1.0))),
 )
 
-
-default_scope = 'mmdet'
-
 train_pipeline = [
     dict(type='LoadImageFromFile', backend_args=None),
     dict(type='LoadAnnotations', with_bbox=True),
@@ -105,9 +102,9 @@ train_pipeline = [
     dict(type='PackDetInputs'),
     # dict(type='RandomFlip', flip_ratio=0.5),
     dict(type='Normalize', mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375]),
-    dict(type='Pad', size=img_scale),
-    # dict(type='DefaultFormatBundle'),
-    dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels'])
+    dict(type='Pad', size_divisor=16),
+    dict(type='DefaultFormatBundle'),
+    dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels']),
 ]
 
 test_pipeline = [
@@ -116,10 +113,11 @@ test_pipeline = [
     dict(type='Resize', scale=img_scale, keep_ratio=True),
     dict(type='PackDetInputs'),
     dict(type='Normalize', mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375]),
-    dict(type='Pad', size=img_scale),
-    # dict(type='DefaultFormatBundle'),
-    dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels'])
+    dict(type='Pad', size_divisor=16),
+    dict(type='DefaultFormatBundle'),
+    dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels']),
 ]
+
 
 train_dataloader = dict(
     batch_size=train_batch_size_per_gpu,
@@ -170,7 +168,7 @@ param_scheduler = [
     dict(type='CosineAnnealingLR', eta_min=base_lr * 0.05, begin=max_epochs // 2, end=max_epochs, T_max=max_epochs // 2, by_epoch=True)
 ]
 
-# default_scope = 'mmdet'
+default_scope = 'mmdet'
 # load_from = '/kaggle/working/mmdetection/work_dirs/faster_rcnn_malaria/best_ckpt.pth'  # Ensure this path is correct for your environment
 auto_scale_lr = dict(base_batch_size=train_batch_size_per_gpu)
 
