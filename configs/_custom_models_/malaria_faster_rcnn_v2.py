@@ -171,12 +171,11 @@ test_dataloader = test_dataloader = dict(
     )
 )
 # Add a test evaluator
-# test_evaluator = dict(
-#     type='CocoMetric',
-#     ann_file=test_ann_file,
-#     metric=['bbox']
-# )
-test_evaluator = []
+test_evaluator = dict(
+    type='CocoMetric',
+    ann_file=test_ann_file,
+    metric=['bbox']
+)
 
 val_evaluator = dict(
     type='CocoMetric',
