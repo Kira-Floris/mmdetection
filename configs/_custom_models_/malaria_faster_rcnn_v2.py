@@ -129,7 +129,8 @@ train_dataloader = dict(
         data_root=data_root,
         ann_file=train_ann_file,
         data_prefix=dict(img_path=train_data_prefix),
-        pipeline=train_pipeline))
+        # pipeline=train_pipeline
+        ))
 
 val_dataloader = dict(
     batch_size=2,  # Set validation batch size
@@ -141,7 +142,8 @@ val_dataloader = dict(
         data_root=data_root,
         ann_file=val_ann_file,
         data_prefix=dict(img_path=val_data_prefix),
-        pipeline=test_pipeline))
+        # pipeline=test_pipeline
+        ))
 
 test_dataloader = val_dataloader  # Assuming you're using the validation dataset for testing
 
