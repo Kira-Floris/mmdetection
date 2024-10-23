@@ -207,3 +207,11 @@ default_hooks = dict(
     checkpoint=dict(type='CheckpointHook', interval=1), # Save checkpoints periodically
     sampler_seed=dict(type='DistSamplerSeedHook'),  # Ensure distributed Sampler shuffle is active
     visualization=dict(type='DetVisualizationHook'))
+
+# Add the visualizer
+visualizer = dict(
+    type='DetLocalVisualizer',  # Use the local visualizer for detection
+    show=True,  # Show results during inference
+    wait_time=0,  # Wait time for visualization (in ms)
+    palette=[(0, 255, 0), (255, 0, 0)]  # Customize palette if necessary
+)
