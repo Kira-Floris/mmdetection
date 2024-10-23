@@ -214,8 +214,8 @@ visualizer = dict(
     vis_backends=vis_backends,
     name='visualizer')
 
-visualization=dict( # user visualization of validation and test results
-    type='DetVisualizationHook',
-    draw=False,
-    interval=1,
-    show=False)
+# visualization=dict( # user visualization of validation and test results
+#     type='DetVisualizationHook',
+#     draw=False,
+#     interval=1,
+#     show=False)
