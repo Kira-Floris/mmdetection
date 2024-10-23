@@ -198,3 +198,13 @@ default_scope = 'mmdet'
 auto_scale_lr = dict(base_batch_size=train_batch_size_per_gpu)
 
 train_cfg = dict(max_epochs=max_epochs, val_interval=1)
+
+
+default_hooks = dict(
+    timer=dict(type='IterTimerHook'),
+    logger=dict(type='LoggerHook', interval=50),
+    param_scheduler=dict(type='ParamSchedulerHook'),
+    checkpoint=dict(type='CheckpointHook', interval=1),
+    sampler_seed=dict(type='DistSamplerSeedHook'),
+    visualization=dict(type='VisualizationHook')
+)
