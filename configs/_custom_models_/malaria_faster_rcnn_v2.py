@@ -99,23 +99,24 @@ train_pipeline = [
     dict(type='LoadImageFromFile', backend_args=None),
     dict(type='LoadAnnotations', with_bbox=True),
     dict(type='Resize', scale=img_scale, keep_ratio=True),
-    dict(type='PackDetInputs'),
     # dict(type='RandomFlip', flip_ratio=0.5),
     dict(type='Normalize', mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375]),
     dict(type='Pad', size_divisor=16),
-    dict(type='DefaultFormatBundle'),
-    dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels']),
+    # dict(type='DefaultFormatBundle'),
+    # dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels']),
+    dict(type='PackDetInputs'),
 ]
 
 test_pipeline = [
     dict(type='LoadImageFromFile', backend_args=None),
     dict(type='LoadAnnotations', with_bbox=True),
     dict(type='Resize', scale=img_scale, keep_ratio=True),
-    dict(type='PackDetInputs'),
+    # dict(type='PackDetInputs'),
     dict(type='Normalize', mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375]),
     dict(type='Pad', size_divisor=16),
     dict(type='DefaultFormatBundle'),
     dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels']),
+    dict(type='PackDetInputs'),
 ]
 
 
@@ -129,7 +130,7 @@ train_dataloader = dict(
         data_root=data_root,
         ann_file=train_ann_file,
         data_prefix=dict(img_path=train_data_prefix),
-        # pipeline=train_pipeline
+        pipeline=train_pipeline
         ))
 
 val_dataloader = dict(
@@ -142,7 +143,7 @@ val_dataloader = dict(
         data_root=data_root,
         ann_file=val_ann_file,
         data_prefix=dict(img_path=val_data_prefix),
-        # pipeline=test_pipeline
+        pipeline=test_pipeline
         ))
 
 test_dataloader = val_dataloader  # Assuming you're using the validation dataset for testing
