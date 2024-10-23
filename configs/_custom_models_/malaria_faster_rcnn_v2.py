@@ -95,6 +95,9 @@ model = dict(
             loss_bbox=dict(type='L1Loss', loss_weight=1.0))),
 )
 
+
+default_scope = 'mmdet'
+
 train_pipeline = [
     dict(type='LoadImageFromFile', backend_args=None),
     dict(type='LoadAnnotations', with_bbox=True),
@@ -117,7 +120,6 @@ test_pipeline = [
     # dict(type='DefaultFormatBundle'),
     dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels'])
 ]
-
 
 train_dataloader = dict(
     batch_size=train_batch_size_per_gpu,
@@ -168,7 +170,7 @@ param_scheduler = [
     dict(type='CosineAnnealingLR', eta_min=base_lr * 0.05, begin=max_epochs // 2, end=max_epochs, T_max=max_epochs // 2, by_epoch=True)
 ]
 
-default_scope = 'mmdet'
+# default_scope = 'mmdet'
 # load_from = '/kaggle/working/mmdetection/work_dirs/faster_rcnn_malaria/best_ckpt.pth'  # Ensure this path is correct for your environment
 auto_scale_lr = dict(base_batch_size=train_batch_size_per_gpu)
 
