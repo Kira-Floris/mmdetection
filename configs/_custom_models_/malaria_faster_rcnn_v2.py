@@ -14,6 +14,9 @@ train_data_prefix = 'train/'
 val_ann_file = '/kaggle/working/mmdetection/data/malaria/annotations/_annotations.malaria_val.json'
 val_data_prefix = 'val/'
 
+test_ann_file = '/kaggle/working/mmdetection/data/malaria/annotations/_annotations.malaria_test.json'
+test_data_prefix = 'test/'
+
 class_name = ('Trophozoite', 'NEG', 'WBC')
 num_classes = len(class_name)
 
@@ -107,7 +110,7 @@ train_pipeline = [
     dict(type='PackDetInputs'),
 ]
 
-test_pipeline = [
+val_pipeline = [
     dict(type='LoadImageFromFile', backend_args=None),
     dict(type='LoadAnnotations', with_bbox=True),
     dict(type='Resize', scale=img_scale, keep_ratio=True),
@@ -119,6 +122,14 @@ test_pipeline = [
     dict(type='PackDetInputs'),
 ]
 
+test_pipeline = [
+    dict(type='LoadImageFromFile', backend_args=None),
+    dict(type='Resize', scale=img_scale, keep_ratio=True),
+    dict(type='Normalize', mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375]),
+    dict(type='Pad', size_divisor=16),
+    # No annotations to load, so we skip the annotation-related steps
+    dict(type='PackDetInputs'),
+]
 
 train_dataloader = dict(
     batch_size=train_batch_size_per_gpu,
@@ -143,15 +154,26 @@ val_dataloader = dict(
         data_root=data_root,
         ann_file=val_ann_file,
         data_prefix=dict(img_path=val_data_prefix),
-        pipeline=test_pipeline
+        pipeline=val_pipeline
         ))
 
-test_dataloader = val_dataloader  # Assuming you're using the validation dataset for testing
-
+test_dataloader = test_dataloader = dict(
+    batch_size=2,  # You can adjust the batch size as needed
+    num_workers=train_num_workers,
+    persistent_workers=persistent_workers,
+    pin_memory=True,
+    dataset=dict(
+        type='CocoDataset',
+        data_root=data_root,
+        ann_file=test_ann_file,  # Test annotation file (with just image information, no bboxes)
+        data_prefix=dict(img_path=test_data_prefix),
+        pipeline=test_pipeline
+    )
+)
 # Add a test evaluator
 test_evaluator = dict(
     type='CocoMetric',
-    ann_file=val_ann_file,
+    ann_file=test_ann_file,
     metric=['bbox']
 )
 
