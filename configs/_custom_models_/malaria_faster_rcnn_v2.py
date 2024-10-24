@@ -177,7 +177,7 @@ val_evaluator = dict(
     type='CocoMetric',
     ann_file=val_ann_file,
     metric=['bbox'],
-    format_only=True,
+    format_only=False,
     outfile_prefix="/kaggle/working/results/test/",
 )
 
