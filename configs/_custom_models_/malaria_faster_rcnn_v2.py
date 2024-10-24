@@ -176,7 +176,9 @@ test_dataloader = val_dataloader
 val_evaluator = dict(
     type='CocoMetric',
     ann_file=val_ann_file,
-    metric=['mAP']
+    metric=['bbox'],
+    format_only=True,
+    outfile_prefix="/kaggle/working/results/test/",
 )
 
 # Add a test evaluator
