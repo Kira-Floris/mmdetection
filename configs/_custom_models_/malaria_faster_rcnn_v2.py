@@ -176,7 +176,7 @@ test_dataloader = val_dataloader
 val_evaluator = dict(
     type='CocoMetric',
     ann_file=val_ann_file,
-    metric=['bbox']
+    metric=['mAP']
 )
 
 # Add a test evaluator
