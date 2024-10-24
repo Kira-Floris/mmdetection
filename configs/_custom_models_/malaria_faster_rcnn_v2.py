@@ -30,18 +30,11 @@ persistent_workers = True
 base_lr = 0.02
 max_epochs = 5  # Adjust as necessary
 
-# model_test_cfg = dict(
-#     rcnn=dict(
-#         score_thr=0.1,
-#         nms=dict(type='nms', iou_threshold=0.65),
-#         max_per_img=300)
-# )
 model_test_cfg = dict(
-    multi_label=True,
-    nms_pre=30000,
-    score_thr=0.01,
-    nms=dict(type='nms', iou_threshold=0.65),
-    max_per_img=300
+    rcnn=dict(
+        score_thr=0.1,
+        nms=dict(type='nms', iou_threshold=0.65),
+        max_per_img=300)
 )
 
 # ========================Possible modified parameters========================
@@ -222,7 +215,9 @@ vis_backends = [dict(type='LocalVisBackend')]
 visualizer = dict(
     type='DetLocalVisualizer',
     vis_backends=vis_backends,
-    name='visualizer')
+    name='visualizer',
+    save_dir='/kaggle/working/visualization/'
+    )
 
 # visualization=dict( # user visualization of validation and test results
 #     type='DetVisualizationHook',
