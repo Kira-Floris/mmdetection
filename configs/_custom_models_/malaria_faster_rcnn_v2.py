@@ -8,13 +8,13 @@ _base_ = [
 # -----data related-----
 data_root = '/kaggle/working/mmdetection/data/malaria/'
 
-train_ann_file = '/kaggle/working/mmdetection/data/malaria/annotations/_annotations.malaria_train.json'
+train_ann_file = 'annotations/_annotations.malaria_train.json'
 train_data_prefix = 'train/'
 
-val_ann_file = '/kaggle/working/mmdetection/data/malaria/annotations/_annotations.malaria_val.json'
+val_ann_file = 'annotations/_annotations.malaria_val.json'
 val_data_prefix = 'val/'
 
-test_ann_file = '/kaggle/working/mmdetection/data/malaria/annotations/_annotations.malaria_test.json'
+test_ann_file = 'annotations/_annotations.malaria_test.json'
 test_data_prefix = 'test/'
 
 class_name = ('Trophozoite', 'NEG', 'WBC')
@@ -173,18 +173,14 @@ val_dataloader = dict(
 
 test_dataloader = val_dataloader
 
-# Add a test evaluator
-test_evaluator = dict(
-    type='CocoMetric',
-    ann_file=val_ann_file,
-    metric=['bbox']
-)
-
 val_evaluator = dict(
     type='CocoMetric',
     ann_file=val_ann_file,
     metric=['bbox']
 )
+
+# Add a test evaluator
+test_evaluator = val_evaluator
 
 optim_wrapper = dict(
     type='OptimWrapper',
