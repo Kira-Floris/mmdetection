@@ -30,11 +30,18 @@ persistent_workers = True
 base_lr = 0.02
 max_epochs = 5  # Adjust as necessary
 
+# model_test_cfg = dict(
+#     rcnn=dict(
+#         score_thr=0.1,
+#         nms=dict(type='nms', iou_threshold=0.65),
+#         max_per_img=300)
+# )
 model_test_cfg = dict(
-    rcnn=dict(
-        score_thr=0.1,
-        nms=dict(type='nms', iou_threshold=0.65),
-        max_per_img=300)
+    multi_label=True,
+    nms_pre=30000,
+    score_thr=0.01,
+    nms=dict(type='nms', iou_threshold=0.65),
+    max_per_img=300
 )
 
 # ========================Possible modified parameters========================
