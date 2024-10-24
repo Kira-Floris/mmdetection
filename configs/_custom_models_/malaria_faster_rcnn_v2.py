@@ -27,12 +27,12 @@ train_num_workers = 4
 persistent_workers = True
 
 # -----train val related-----
-base_lr = 0.002
-max_epochs = 10  # Adjust as necessary
+base_lr = 0.02
+max_epochs = 5  # Adjust as necessary
 
 model_test_cfg = dict(
     rcnn=dict(
-        score_thr=0.001,
+        score_thr=0.1,
         nms=dict(type='nms', iou_threshold=0.65),
         max_per_img=300)
 )
