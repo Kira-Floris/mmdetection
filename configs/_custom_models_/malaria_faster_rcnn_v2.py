@@ -8,10 +8,10 @@ _base_ = [
 # -----data related-----
 data_root = '/kaggle/working/mmdetection/data/malaria/'
 
-train_ann_file = 'annotations/_annotations.malaria_train.json'
+train_ann_file = data_root+'annotations/_annotations.malaria_train.json'
 train_data_prefix = 'train/'
 
-val_ann_file = 'annotations/_annotations.malaria_val.json'
+val_ann_file = data_root+'annotations/_annotations.malaria_val.json'
 val_data_prefix = 'val/'
 
 test_ann_file = 'annotations/_annotations.malaria_test.json'
