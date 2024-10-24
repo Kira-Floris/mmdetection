@@ -28,7 +28,7 @@ persistent_workers = True
 
 # -----train val related-----
 base_lr = 0.02
-max_epochs = 5  # Adjust as necessary
+max_epochs = 2  # Adjust as necessary
 
 model_test_cfg = dict(
     rcnn=dict(
@@ -140,7 +140,7 @@ train_dataloader = dict(
         type='CocoDataset',
         data_root=data_root,
         ann_file=train_ann_file,
-        data_prefix=dict(img_path=train_data_prefix),
+        data_prefix=dict(img=train_data_prefix),
         pipeline=train_pipeline
         ))
 
@@ -153,7 +153,7 @@ val_dataloader = dict(
         type='CocoDataset',
         data_root=data_root,
         ann_file=val_ann_file,
-        data_prefix=dict(img_path=val_data_prefix),
+        data_prefix=dict(img=val_data_prefix),
         pipeline=val_pipeline
         ))
 
