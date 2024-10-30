@@ -1,6 +1,6 @@
 _base_ = [
     '/kaggle/working/mmdetection/configs/_base_/models/faster_rcnn_r50_fpn.py',
-    '/kaggle/working/mmdetection/configs/_base_/datasets/coco_detection.py',
+    '/kaggle/working/mmdetection/configs/_base_/datasets/malaria_detection.py',
     '/kaggle/working/mmdetection/configs/_base_/schedules/schedule_1x.py', 
     '/kaggle/working/mmdetection/configs/_base_/default_runtime.py'
 ]
