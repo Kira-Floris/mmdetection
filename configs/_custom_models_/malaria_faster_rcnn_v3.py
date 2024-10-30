@@ -4,6 +4,9 @@ _base_ = [
     '/kaggle/working/mmdetection/configs/_base_/schedules/schedule_1x.py', 
     '/kaggle/working/mmdetection/configs/_base_/default_runtime.py'
 ]
+
+default_scope = 'mmdet'
+
 norm_cfg = dict(type='GN', num_groups=32, requires_grad=True)
 model = dict(
     backbone=dict(
