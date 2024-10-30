@@ -2,7 +2,7 @@ _base_ = [
     '/kaggle/working/mmdetection/configs/_base_/models/faster-rcnn_r50_fpn.py',
     '/kaggle/working/mmdetection/configs/_base_/datasets/malaria_detection.py',
     '/kaggle/working/mmdetection/configs/_base_/schedules/schedule_1x.py', 
-    '/kaggle/working/mmdetection/configs/_base_/default_runtime.py'
+    # '/kaggle/working/mmdetection/configs/_base_/default_runtime.py'
 ]
 
 default_scope = 'mmdet'
